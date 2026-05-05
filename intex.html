@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>IVIG Doz Hesaplama</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      width: 320px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h2 {
+      color: #2c7be5;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 95%;
+      padding: 10px;
+      background: #2c7be5;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    #result {
+      margin-top: 20px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .note {
+      font-size: 11px;
+      color: gray;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>IVIG Doz Hesaplama</h2>
+
+  <input type="number" id="weight" placeholder="Hasta kilosu (kg)">
+  <input type="number" id="dose" placeholder="Doz (mg/kg)">
+
+  <button onclick="calculate()">Hesapla</button>
+
+  <div id="result"></div>
+
+  <div class="note">
+    * Eğitim amaçlıdır. Klinik kullanım için değildir.
+  </div>
+</div>
+
+<script>
+function calculate() {
+  const weight = Number(document.getElementById("weight").value);
+  const dose = Number(document.getElementById("dose").value);
+
+  if (!weight || !dose) {
+    alert("Lütfen tüm alanları doldurun");
+    return;
+  }
+
+  const totalDose = (weight * dose) / 1000; // gram
+  const initialRate = (0.5 * weight).toFixed(1);
+  const maxRate = (4 * weight).toFixed(1);
+
+  document.getElementById("result").innerHTML = `
+    <b>Toplam Doz:</b> ${totalDose.toFixed(2)} g <br>
+    <b>Başlangıç Hızı:</b> ${initialRate} mL/saat <br>
+    <b>Maksimum Hız:</b> ${maxRate} mL/saat
+  `;
+}
+</script>
+
+</body>
+</html>
